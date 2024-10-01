@@ -12,12 +12,7 @@ pipeline{
         stage("Build"){
             steps{echo "Building branch${params.BRANCH}" }
         }
-
-        stage("Deploy"){
-            when{ expression {params.DEPLOY} }
-            steps{ echo "Deploying ...."}    
-        }
-
+        
         stage('Parallel Stage') {
             parallel {
                 stage('Test 1') {
@@ -32,6 +27,13 @@ pipeline{
                 }
             } 
         }
+        
+        stage("Deploy"){
+            when{ expression {params.DEPLOY} }
+            steps{ echo "Deploying ...."}    
+        }
+
+
     }
     post {
         success {
