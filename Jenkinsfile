@@ -1,5 +1,8 @@
 pipeline{
     agent any 
+    environment {
+    Build_Message = 'Hello From jenkins Env Var'
+    }
 
    parameters {
         string(name: 'BRANCH', defaultValue: 'main', description: 'Branch to build') // String parameter for branch name
@@ -10,7 +13,10 @@ pipeline{
     stages {
 
         stage("Build"){
-            steps{echo "Building branch${params.BRANCH}" }
+            steps{
+                echo 'Message: ${env.Build_Message}'
+                echo "Building branch${params.BRANCH}" 
+            }
         }
         
         stage('Parallel Stage') {
